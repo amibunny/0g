@@ -22,8 +22,11 @@ source ~/.bashrc
 echo -e "✅ Go installed: $(go version)"
 
 # Clone repo
+cd $HOME
 git clone https://github.com/0glabs/0g-storage-node.git
-cd 0g-storage-node && git checkout v1.1.0 && git submodule update --init
+cd 0g-storage-node
+git checkout v1.1.0
+git submodule update --init
 
 # Build
 cargo build --release
@@ -39,7 +42,7 @@ echo -e "\n🔐 Enter your PRIVATE KEY (without 0x):"
 read -r PRIVATE_KEY
 
 # Inject the key
-sed -i "s/miner_key = \".*\"/miner_key = \"$PRIVATE_KEY\"/" "$CONFIG_FILE"
+sed -i "s|miner_key = \".*\"|miner_key = \"$PRIVATE_KEY\"|" "$CONFIG_FILE"
 
 echo -e "\n✅ Private key added to config.toml"
 
